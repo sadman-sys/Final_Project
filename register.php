@@ -1,116 +1,151 @@
-
 <?php include 'main_header.php';?>
-<html>
-     <head>
-	 <script>
-	  function validate(){
-		 var Name=document.logform.Name;
-		 var Uname =document.logform.Uname;
-		 var password =document.logform.password;
-		
-		 var gmail=document.logform.gmail;
-		 var phone=document.logform.phone;
+
+<?php
+   
+	$name="";
+	$err_name="";
+	$uname="";
+	$err_uname="";
+	$pass="";
+	$err_pass="";
+	$gmail="";
+	$err_gmail="";
+	$phone="";
+	$err_phone="";
+	$type="";
+	$err_type="";
 	
-		 
-		 if(Name.value.length <= 0)
-        {
-			alert("name can not be blank");
-			Name.focus();
-			return false;
-			
+	if($_SERVER["REQUEST_METHOD"] == "POST"){
+	//if(isset($_POST["submit"])){
+		if(empty($_POST["name"])){
+			$err_name="*name Required";
 		}
-		 
-		if(Uname.value.length <= 0)
-        {
-			alert("username can not be blank");
-			Uname.focus();
-			return false;
-			
-		}	
-		
-	   if (password.value.length <= 0)
-        {
-			alert("password can not be blank");
-			passwoprd.focus();
-			return false;
-			
+		elseif(strlen($_POST["name"]) < 6){
+			$err_name="name Must be 6 Characters Long";
 		}
 		
-		if (gmail.value.length <= 0)
-        {
-			alert("gmail can not be blank");
-			gmail.focus();
-			return false;
-			
+		else{
+			$name=$_POST["name"];
 		}
-		if (phone.value.length <= 0)
-        {
-			alert("phone can not be blank");
-			phone.focus();
-			return false;
-			
+		
+		if(empty($_POST["uname"])){
+			$err_uname="*username Required";
 		}
-        return false;
-        		
-	 }
-	 
-	 
-	 
-	 
-	 </script>
+		else{
+			$uname=$_POST["uname"];
+		}
+		if(empty($_POST["pass"])){
+			$err_pass="*password Required";
+		}else{
+			$pass=$_POST["pass"];
+		}
+		if(empty($_POST["gmail"])){
+			$err_gmail="*gmail Required";
+		}
+		elseif(strlen($_POST["gmail"]) < 6){
+			$err_gmail="gmail Must be 6 Characters Long";
+		}
+		else{
+			$gmail=$_POST["gmail"];
+		}
+       if(empty($_POST["phone"])){
+			$err_phone="*phone number Required";
+		}
+		else{ 
+			$phone=$_POST["phone"];
+		}
 
 
-	 
-	 </head>
-	 
-	 <div class="center-login">
-	 <body>
-	      <h1> REGISTER FORM </h1>
-	      <form  name="logform" method="post"action="" onsubmit="validate()">
+	}
+		
+?>
+
+
+<?php $db=mysqli_connect("localhost","root","","ccrud");?>
+
+
+<html>
+<head>
+<h1><div class="center-login">Register form  <h1>
+</head>
+<body>
+<form action="" method="post">
 			<table>
-			     <tr>
+			    <tr>
 					<td><span >Name</span></td>
-					<td>:<input type="text" name="Name"placeholder="*name requerd">
-						
+					<td>:<input type="text" name="name" value="" placeholder="enter name">
+						<?php echo $err_name;?></td>
+				</tr>
+			 <tr>
+					<td><span >User name</span></td>
+					<td>:<input type="text" name="uname" value="<?php echo $uname;?>" placeholder="enter username">
+						<span><?php echo $err_uname;?></span></td>
+				</tr>
+			 <tr>
+					<td><span >Password </span></td>
+					<td>:<input type="text" name="pass" value="<?php echo $pass;?>" placeholder="enter password">
+						<span><?php echo $err_pass;?></span></td>
 				</tr>
 				<tr>
-					<td><span >Username</span></td>
-					<td>:<input type="text" name="Uname"placeholder="*Username requerd">
-						
+					<td><span >Gmail</span></td>
+					<td>:<input type="text" name="gmail" value="<?php echo $gmail;?>" placeholder="enter gmail">
+						<span><?php echo $err_gmail;?></span></td>
+				</tr>
+				<tr>
+					<td><span >Phone</span></td>
+					<td>:<input type="text" name="phone" value="<?php echo $phone;?>" placeholder="enter phone number">
+						<span><?php echo $err_phone;?></span></td>
+				</tr>
+				<tr>
+					<td><span >Type</span></td>
+					<td>:<input type="text" name="type" value="<?php echo $type;?>" placeholder="enter type">
+						<span><?php echo $err_type;?></span></td>
+				</tr>
+				<tr>
+					<td><input type="submit" name="submit" value="Submit"></td>
 				</tr>
 				
-				<tr>
-					<td><span>Password</span></td>
-					<td>:<input type="pass" name ="password"placeholder="*password requerd">
-					
-				</tr>
-				
-				<tr>
-					<td><span>Gmail</span></td>
-					<td>:<input type="text" name ="gmail"placeholder="*gmail requerd">
-					
-				</tr>
-				<tr>
-					<td><span>Phone</span></td>
-					<td>:<input type="text" name ="phone"placeholder="*phone requerd">
-					
-				</tr>
-										
-				<tr>
-					<td><input type="submit" value="submit"></td>
-				</tr>
-				
-			
 			</table>
-		</form>
-	 
-	 </body>
-	 
-	 </div>
-	 
+			</body>
+		
+			
+</head>		
+
+<tr>
+
+	<?php 
+	$i =0;
+	$qry="select * from reg_data";
+	$run=$db -> query($qry);
+	if($run -> num_rows >0){
+		while($row = $run -> fetch_assoc()){
+		$id=$row['id'];	
+		?>	
+	</tr>
+	
+	
+<?php
+		}
+	}
+	?>
 
 
+<?php
+if(isset($_POST['submit'])){
+	 $name=$_POST['name'];	
+	$uname=$_POST['uname'];
+	$pass=$_POST['pass'];
+	$gmail=$_POST['gmail'];
+	$phone=$_POST['phone'];
+		$type=$_POST['type'];
+	$qry="insert into reg_data values(null,'$name','$uname','$pass','$gmail','$phone','$type')";
+	if(mysqli_query($db,$qry)){
+		//echo '<script>alert("Sumitted successfully")</script>';
+		header('location:register.php');
+	}else{
+		echo mysqli_error($db);
+	}
+	}
+?>
 
-
-</html>
 <?php include 'main_footer.php';?>

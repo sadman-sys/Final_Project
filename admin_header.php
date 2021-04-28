@@ -19,13 +19,14 @@
 			
 			
 			
-			<!--<a href="list_of_packages.php" class="btn btn-warning">List of Packages</a> -->
+		
 			<a href="booking_list.php" class="btn btn-primary">Booking List </a>
 			<a href="Acomment.php" class="btn btn-warning">Customer Feedback </a>
 			<a href="listPackase.php" class="btn btn-primary">Add Packages</a>
 			<a href="add_manager.php" class="btn btn-warning">Add Manager </a>
 		    <a href="add_employe.php" class="btn btn-primary">ADD Employee</a>
 		    <a href="add_customer.php" class="btn btn-warning">ADD Customer</a>
+			<a href="registered_information.php" class="btn btn-primary">Registered Information</a> 
 
 			<a href="index.php" class="btn btn-danger">Logout</a>	<br>
            <!-- <a href="generate_sales_report.php" class="btn btn-info">Generate Sales Report </a>	

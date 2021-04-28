@@ -1,4 +1,24 @@
 <?php include 'main_header.php';?>
+<?php
+
+
+
+      if($_SERVER["REQUEST_METHOD"]=="POST"){
+		  
+		$uname=$_POST["uname"];
+        $pass=$_POST["pass"];
+
+        if($uname=="sadman"   &&  $pass=="12345"){
+			setcookie("uname",$uname,time()+60);
+			header("Location: dashboard.php");
+		}		
+		  
+	  }
+
+
+
+
+?>
 
 
 <?php
@@ -44,8 +64,8 @@
 	
 	<script>
 	  function validate(){
-		 var uname =document.logform.uname;
-		 var pass =document.logform.pass;
+		 var $uname =document.logform.uname;
+		 var $pass =document.logform.pass;
 	
 		 
 		 
@@ -75,63 +95,34 @@
 	 
 	 
 	 </script>
-	
-	<body>
-		<div class="center-login"><h1>Log In </h1>
-		<form action="dashboard.php" method="post">
-			<table>
-				<tr>
-					<td><span >Username</span></td>
-					<td>:<input type="text" name="uname" value="<?php echo $uname;?>" placeholder="username">
-						<span><?php echo $err_uname;?></span></td>
-				</tr>
-				<tr>
-					<td><span>Password</span></td>
-					<td>:<input type="password" value="<?php echo $pass;?>" placeholder="password">
-					<span><?php echo $err_pass;?></span></td>
-				</tr>
-				<tr>
-					<td><input type="submit" value="login" href="dashboars.php"></td>
-					
-				</tr>
-				<tr>
+
+
+
+<body>
+ <div class="center-login"><h1>Log In </h1>
+   <form action="" method="Post">
+         Username:<input type="text" name="uname" placeholder="  *username Required">
+		 <?php echo $err_uname;?><br>
+		 
+		 
+		 Password:<input type="text" name="pass"placeholder="*password Required">
+		 <?php echo $err_pass;?><br>
+		 
+		 <input type="submit" name="submit" value="login">
+        
+                 <tr>
 				  <td><a href="register.php" >Not registered yet? Sign Up</a></td>
 				  </tr>
-		
-			</table>
-		</form>
-		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</body>
+   </form>
+
+</body>
+
+
+
+
 </html>
-
-<!--login starts -->
-
-
-<!--login ends -->
+		
+	
 <?php include 'main_footer.php';?>
 
 
